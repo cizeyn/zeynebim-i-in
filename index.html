@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Biz 💕</title>
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 30px;
+  color: white;
+  overflow-x: hidden;
+
+  background: linear-gradient(120deg, #ff9a9e, #a18cd1, #5f72be);
+  background-size: 600% 600%;
+  animation: gradientBG 20s ease infinite;
+}
+
+@keyframes gradientBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: white;
+  font-size: 18px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+.card {
+  background: rgba(255,255,255,0.95);
+  color: black;
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 750px;
+  margin: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+button {
+  margin: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.result {
+  font-size: 20px;
+  margin-top: 15px;
+  min-height: 30px;
+}
+
+.faces {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+}
+
+.face {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #f1c27d;
+  position: relative;
+}
+
+.hair-boy {
+  position: absolute;
+  top: -8px;
+  width: 100%;
+  height: 45%;
+  background: #111;
+  border-radius: 50% 50% 40% 40%;
+}
+
+.hair-girl {
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 70%;
+  background: #111;
+  border-radius: 50%;
+}
+
+.bangs {
+  position: absolute;
+  top: 12px;
+  width: 100%;
+  height: 18px;
+  background: #111;
+  border-radius: 0 0 20px 20px;
+}
+
+.eye {
+  width: 7px;
+  height: 7px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 45px;
+}
+
+.eye.left { left: 26px; }
+.eye.right { right: 26px; }
+
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎄 Biz 🎄</h1>
+
+  <div class="faces">
+    <div class="face">
+      <div class="hair-boy"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+    </div>
+    <div class="face">
+      <div class="hair-girl"></div>
+      <div class="bangs"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+    </div>
+  </div>
+
+  <button onclick="countDays()">Senle şu kadar süredir aşığız 💕</button>
+  <button onclick="countDistance()">Kaç km uzaktayız 📍</button>
+  <button onclick="howStarted()">Nasıl başladı? 💌</button>
+  <button onclick="wish()">Yeni yılda dileğim 🎁</button>
+
+  <div id="output" class="result"></div>
+
+  <!-- 🎆 Yılbaşı sürprizi -->
+  <div id="newYearSurprise" style="display:none; margin-top:20px; font-size:22px;">
+    🎆 2025’e seninle girdim… iyi ki varsın 🤍
+  </div>
+</div>
+
+<script>
+// ❄️ Kar efekti
+for (let i = 0; i < 25; i++) {
+  const snow = document.createElement("div");
+  snow.className = "snowflake";
+  snow.style.left = Math.random() * 100 + "vw";
+  snow.style.animationDuration = 3 + Math.random() * 5 + "s";
+  snow.innerHTML = "❄";
+  document.body.appendChild(snow);
+}
+
+// ❤️ Gün sayacı
+const output = document.getElementById("output");
+
+function countDays() {
+  const start = new Date("2024-01-26");
+  const today = new Date();
+  const days = Math.floor((today - start) / (1000*60*60*24));
+  animate(days, " gündür birlikteyiz 💕");
+}
+
+// 📍 KM
+function countDistance() {
+  const km = 676;
+  animate(km, " km uzaktayız ama kalbimiz yan yana ❤️");
+}
+
+// 💌 Nasıl başladı
+function howStarted() {
+  output.innerText = "Bir merhaba ile başladı… bir bakış yetti aşık olmam için 💫";
+}
+
+// 🎁 Dilek
+function wish() {
+  output.innerText = "Yeni yılda dileğim: her yıla seninle girebilmek 🤍";
+}
+
+// 🔢 Animasyon
+function animate(target, text) {
+  let i = 1;
+  const step = Math.ceil(target / 50);
+  const interval = setInterval(() => {
+    output.innerText = i + text;
+    i += step;
+    if (i >= target) {
+      output.innerText = target + text;
+      clearInterval(interval);
+    }
+  }, 20);
+}
+
+// 🎇 Yılbaşı sürprizi
+(function newYearCheck() {
+  const now = new Date();
+  const newYear = new Date("2025-01-01T00:00:00");
+  if (now >= newYear) {
+    document.getElementById("newYearSurprise").style.display = "block";
+  }
+})();
+</script>
+
+</body>
+</html>
