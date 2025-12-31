@@ -22,6 +22,7 @@ body {
   100%{background-position:0% 50%}
 }
 
+/* Kar efekti */
 .snowflake {
   position: fixed;
   top: -10px;
@@ -30,11 +31,10 @@ body {
   animation: fall linear infinite;
 }
 @keyframes fall {
-  to {
-    transform: translateY(110vh);
-  }
+  to { transform: translateY(110vh); }
 }
 
+/* Kart */
 .card {
   background: rgba(255,255,255,0.95);
   color: black;
@@ -45,9 +45,12 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
+/* Butonlar */
 button {
-  margin: 8px;
-  padding: 12px 20px;
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px 20px;
   border: none;
   border-radius: 12px;
   background: #ff4d6d;
@@ -62,64 +65,16 @@ button {
   min-height: 30px;
 }
 
-.faces {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin: 20px 0;
-}
-
-.face {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: #f1c27d;
-  position: relative;
-}
-
-.hair-boy {
-  position: absolute;
-  top: -8px;
-  width: 100%;
-  height: 45%;
-  background: #111;
-  border-radius: 50% 50% 40% 40%;
-}
-
-.hair-girl {
-  position: absolute;
-  top: -10px;
-  width: 100%;
-  height: 70%;
-  background: #111;
-  border-radius: 50%;
-}
-
-.bangs {
-  position: absolute;
-  top: 12px;
-  width: 100%;
-  height: 18px;
-  background: #111;
-  border-radius: 0 0 20px 20px;
-}
-
-.eye {
-  width: 7px;
-  height: 7px;
-  background: black;
-  border-radius: 50%;
-  position: absolute;
-  top: 45px;
-}
-
-.eye.left { left: 26px; }
-.eye.right { right: 26px; }
-
-@media (max-width: 600px) {
-  button {
-    width: 100%;
-  }
+/* Mektup */
+.letter {
+  display: none;
+  margin-top: 20px;
+  background: #fff0f5;
+  color: #333;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 16px;
+  line-height: 1.6;
 }
 </style>
 </head>
@@ -129,30 +84,30 @@ button {
 <div class="card">
   <h1>🎄 Biz 🎄</h1>
 
-  <div class="faces">
-    <div class="face">
-      <div class="hair-boy"></div>
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-    </div>
-    <div class="face">
-      <div class="hair-girl"></div>
-      <div class="bangs"></div>
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-    </div>
-  </div>
-
   <button onclick="countDays()">Senle şu kadar süredir aşığız 💕</button>
   <button onclick="countDistance()">Kaç km uzaktayız 📍</button>
   <button onclick="howStarted()">Nasıl başladı? 💌</button>
   <button onclick="wish()">Yeni yılda dileğim 🎁</button>
+  <button onclick="toggleLetter()">Bir mektubumuz var 💌</button>
 
   <div id="output" class="result"></div>
 
-  <!-- 🎆 Yılbaşı sürprizi -->
+  <!-- ✉️ Mektup -->
+  <div id="letter" class="letter">
+    İyiki hayatıma girdin, iyiki varsın.  
+    Seni çok çok seviyorum.  
+    Ne kadar tartışırsak tartışalım, başımıza ne gelirse gelsin  
+    her zaman beraber olalım.  
+    Benim kalbim ne kadar sende ise, sendeki de bende  
+    her zaman güvende tutalım.  
+    Seni çok çok seviyorum…  
+    <br><br>
+    <strong>Tavşanım benim, tavşanım… canımın içiiiiiii 🤍</strong>
+  </div>
+
+  <!-- 🎆 Yılbaşı -->
   <div id="newYearSurprise" style="display:none; margin-top:20px; font-size:22px;">
-    🎆 2025’e seninle girdim… iyi ki varsın 🤍
+    🎆 2026’ya seninle girdim… iyi ki varsın 🤍
   </div>
 </div>
 
@@ -177,20 +132,23 @@ function countDays() {
   animate(days, " gündür birlikteyiz 💕");
 }
 
-// 📍 KM
 function countDistance() {
   const km = 676;
   animate(km, " km uzaktayız ama kalbimiz yan yana ❤️");
 }
 
-// 💌 Nasıl başladı
 function howStarted() {
   output.innerText = "Bir merhaba ile başladı… bir bakış yetti aşık olmam için 💫";
 }
 
-// 🎁 Dilek
 function wish() {
   output.innerText = "Yeni yılda dileğim: her yıla seninle girebilmek 🤍";
+}
+
+// ✉️ Mektup aç/kapat
+function toggleLetter() {
+  const letter = document.getElementById("letter");
+  letter.style.display = letter.style.display === "block" ? "none" : "block";
 }
 
 // 🔢 Animasyon
@@ -207,10 +165,10 @@ function animate(target, text) {
   }, 20);
 }
 
-// 🎇 Yılbaşı sürprizi
+// 🎇 2026 kontrol
 (function newYearCheck() {
   const now = new Date();
-  const newYear = new Date("2025-01-01T00:00:00");
+  const newYear = new Date("2026-01-01T00:00:00");
   if (now >= newYear) {
     document.getElementById("newYearSurprise").style.display = "block";
   }
